@@ -53,15 +53,26 @@ export default class CellMeasurer extends PureComponent {
       // Explicitly clear width/height before measuring to avoid being tainted by another Grid.
       // eg top/left Grid renders before bottom/right Grid
       // Since the CellMeasurerCache is shared between them this taints derived cell size values.
+      let cachedWidth
+      let cachedHeight
       if (!cache.hasFixedWidth()) {
+        cachedWidth = node.style.width
         node.style.width = 'auto'
       }
       if (!cache.hasFixedHeight()) {
+        cachedHeight = node.style.height
         node.style.height = 'auto'
       }
 
       const height = Math.ceil(node.offsetHeight)
       const width = Math.ceil(node.offsetWidth)
+
+      if (!cache.hasFixedWidth()) {
+        node.style.width = cachedWidth
+      }
+      if (!cache.hasFixedHeight()) {
+        node.style.height = cachedHeight
+      }
 
       cache.set(
         rowIndex,
