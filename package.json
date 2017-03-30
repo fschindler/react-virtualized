@@ -27,7 +27,7 @@
     "predeploy": "cp ./circle.yml ./build/",
     "postpublish": "npm run deploy",
     "posttest": "[ -z \"$CI\" ] || codecov",
-    "prepublish": "npm run build",
+    "postinstall": "npm run build",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.js",
     "test": "npm run lint && npm run test:jest",
     "test:jest": "jest --no-watchman",
